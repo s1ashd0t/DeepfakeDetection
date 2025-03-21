@@ -75,6 +75,15 @@ label = model.config.id2label[predicted_class]
 print(f"Predicted Label: {label}")
 ```
 # **Performance Metrics**
+
+
+![confusion_matrix.png](https://github.com/s1ashd0t/DeepfakeDetection/blob/main/deepfake%20vision%20transformer%20%20trainer/results/confusion_matrix.png?raw=true))
+
+- **Confusion Matrix**:
+  ```
+  [[True Positives, False Negatives],
+   [False Positives, True Negatives]]
+  ```
 ```
 Classification report:
 
@@ -87,14 +96,6 @@ Classification report:
    macro avg     0.7935    0.7000    0.6739     76134
 weighted avg     0.7936    0.6999    0.6739     76134
 ```
-
-![Untitled.png](https://cdn-uploads.huggingface.co/production/uploads/65bb837dbfb878f46c77de4c/MoxwukbZZZuVpvXHstxsw.png)
-
-- **Confusion Matrix**:
-  ```
-  [[True Positives, False Negatives],
-   [False Positives, True Negatives]]
-  ```
 
 # **Dataset**
 The model is fine-tuned on the **Kaggle [Hemg/deepfake-and-real-images](Hemg/deepfake-and-real-images) dataset**, which contains:
