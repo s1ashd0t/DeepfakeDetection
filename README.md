@@ -7,11 +7,13 @@ The **Deep-Fake-Detector-Model** is a cutting-edge deep learning system designed
 - **Architecture**: Vision Transformer (ViT) - `google/vit-base-patch16-224-in21k`.
 - **Input**: RGB images resized to 224x224 pixels.
 - **Output**: Binary classification ("Real" or "Fake").
-- **Training Dataset**: A curated dataset of real and deepfake images (e.g., `Hemg/deepfake-and-real-images`).
+- **Training Dataset**: A curated dataset of real and deepfake images (`Hemg/deepfake-and-real-images`, [CelebDF v2](https://www.kaggle.com/datasets/reubensuju/celeb-df-v2)).
 - **Fine-Tuning**: The model is fine-tuned using Hugging Face's `Trainer` API with advanced data augmentation techniques.
 - **Performance**: Achieves high accuracy and F1 score on validation and test datasets.
 
-**<span style="color:red;">Hugging Face Model Link :</span>** https://huggingface.co/prithivMLmods/Deep-Fake-Detector-Model
+**<span style="color:red;">Hugging Face Model Finetuned on `Celeb DF v2` :</span>** https://huggingface.co/ashwin-raikar/vit-deepfake-detector-celebdfv2
+
+**<span style="color:red;">Hugging Face Model Finetuned on `Hemg/deepfake-and-real-images` :</span>** https://huggingface.co/prithivMLmods/Deep-Fake-Detector-Model
 
 # **Model Architecture**
 The **Vision Transformer (ViT)** is a transformer encoder model (BERT-like) pretrained on a large collection of images in a supervised fashion, namely ImageNet-21k, at a resolution of 224x224 pixels.
@@ -29,8 +31,9 @@ Key components include:
 
 # **Training Details**
 - **Optimizer**: AdamW with a learning rate of `1e-6`.
-- **Batch Size**: 32 for training, 8 for evaluation.
-- **Epochs**: 2.
+- **Batch Size**: 32 for training, 32 for evaluation.
+- **Epochs**: 100.
+- **Dataset**: Celeb DF v2.
 - **Data Augmentation**:
   - Random rotation (±90 degrees).
   - Random sharpness adjustment.
@@ -43,7 +46,7 @@ Key components include:
 from transformers import pipeline
 
 # Load the model
-pipe = pipeline('image-classification', model="prithivMLmods/Deep-Fake-Detector-Model", device=0)
+pipe = pipeline('image-classification', model="ashwin-raikar/vit-deepfake-detector-celebdfv2", device=0)
 
 # Predict on an image
 result = pipe("path_to_image.jpg")
@@ -57,8 +60,8 @@ from PIL import Image
 import torch
 
 # Load the model and processor
-model = ViTForImageClassification.from_pretrained("prithivMLmods/Deep-Fake-Detector-Model")
-processor = ViTImageProcessor.from_pretrained("prithivMLmods/Deep-Fake-Detector-Model")
+model = ViTForImageClassification.from_pretrained("ashwin-raikar/vit-deepfake-detector-celebdfv2")
+processor = ViTImageProcessor.from_pretrained("ashwin-raikar/vit-deepfake-detector-celebdfv2")
 
 # Load and preprocess the image
 image = Image.open("path_to_image.jpg").convert("RGB")
@@ -76,6 +79,32 @@ print(f"Predicted Label: {label}")
 ```
 # **Performance Metrics**
 
+### Results on Celeb DF v2 dataset
+- **Confusion Matrix**:
+  ```
+  [[True Positives, False Negatives],
+   [False Positives, True Negatives]]
+  ```
+
+  ```
+          precision    recall  f1-score   support
+
+    Real       0.46      0.32      0.38      1696
+    Fake       0.17      0.27      0.21       890
+  
+  accuracy                           0.31      2586
+  macro avg      0.32      0.30      0.30      2586
+  weighted avg   0.36      0.31      0.32      2586
+  ```
+
+# **Training Dataset Info**
+The model is fine-tuned on the **[CelebDF v2](https://www.kaggle.com/datasets/reubensuju/celeb-df-v2) dataset**, which contains:
+- **Real Images**: Authentic images of human faces.
+- **Fake Images**: Deepfake images generated using face swapping.
+The source for this dataset was [CelebDF v2](https://www.kaggle.com/datasets/reubensuju/celeb-df-v2), where we extracted images from 200 videos, with a maximum of 5 frames per video. Each image is a 256 X 256 jpg image of human face either real or fake.
+
+
+### Results on Kaggle's Deepfake and real images
 
 ![confusion_matrix.png](https://github.com/s1ashd0t/DeepfakeDetection/blob/main/deepfake%20vision%20transformer%20%20trainer/results/confusion_matrix.png?raw=true))
 
