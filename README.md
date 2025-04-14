@@ -92,14 +92,16 @@ print(f"Predicted Label: {label}")
   ```
 
   ```
-          precision    recall  f1-score   support
-
-    Real       0.46      0.32      0.38      1696
-    Fake       0.17      0.27      0.21       890
+  Classification report:
   
-  accuracy                           0.31      2586
-  macro avg      0.32      0.30      0.30      2586
-  weighted avg   0.36      0.31      0.32      2586
+                precision    recall  f1-score   support
+
+          Real       0.54      0.73      0.62       890
+          Fake       0.83      0.68      0.74      1696
+
+      accuracy                           0.69      2586
+     macro avg       0.68      0.70      0.68      2586
+  weighted avg       0.73      0.69      0.70      2586
   ```
 
 # **Training Dataset Info**
