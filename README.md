@@ -85,6 +85,7 @@ print(f"Predicted Label: {label}")
 ![mislassified.png](https://raw.githubusercontent.com/s1ashd0t/DeepfakeDetection/refs/heads/main/Deep%20Fake%20CelebDF%20v2%20Training/results/misclassified.png)
 
 ![confusion_matrix.png](https://raw.githubusercontent.com/s1ashd0t/DeepfakeDetection/refs/heads/main/Deep%20Fake%20CelebDF%20v2%20Training/results/confusion_matrix.png)
+
 - **Confusion Matrix**:
   ```
   [[True Positives, False Negatives],
